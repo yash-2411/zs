@@ -10,11 +10,11 @@ metadata:
 spec:
   tls:
   - hosts:
-    - cafe.192.168.1.80.nip.io
+    - cafe.example.com
     secretName: cafe-secret
   ingressClassName: nginx
   rules:
-  - host: cafe.192.168.1.80.nip.io
+  - host: cafe.example.com
     http:
       paths:
       - path: /tea
