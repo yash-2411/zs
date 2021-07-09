@@ -10,11 +10,11 @@ $openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout my.key -out my.crt
 $sudo kubectl create ns cafe-demo
 
 #Deployment creation
-$sudo kubectl -n cafe-demo create deployment cafe-demo-1 --image=giriraj789/cafe:v1
+$sudo kubectl -n cafe-demo create deployment cafe-demo --image=giriraj789/cafe:v1
 
 #Services creation
-$sudo kubectl -n cafe-demo expose deployment cafe-demo-1 --name=tea-svc --port=8081 --target-port=80
-$sudo kubectl -n cafe-demo expose deployment cafe-demo-1 --name=coffee-svc --port=8082 --target-port=80
+$sudo kubectl -n cafe-demo expose deployment cafe-demo --name=tea-svc --port=8081 --target-port=80
+$sudo kubectl -n cafe-demo expose deployment cafe-demo --name=coffee-svc --port=8082 --target-port=80
 
 #TLS cert as secret, Certs location could be different and based wherein you have placed certs.
 $sudo kubectl -n cafe-demo create secret tls cafe-secret --cert=certs/my.crt --key=certs/my.key 
