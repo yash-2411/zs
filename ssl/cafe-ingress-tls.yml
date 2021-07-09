@@ -1,14 +1,20 @@
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: cafe-ingress-tls
+  name: cafe-ingress
+  annotations:
+    nginx.org/server-snippets: |
+      location / {
+        return 302 /coffee;
+      }
 spec:
   tls:
   - hosts:
-    - cafe.example.com
+    - cafe.192.168.1.80.nip.io
     secretName: cafe-secret
+  ingressClassName: nginx
   rules:
-  - host: cafe.example.com
+  - host: cafe.192.168.1.80.nip.io
     http:
       paths:
       - path: /tea
