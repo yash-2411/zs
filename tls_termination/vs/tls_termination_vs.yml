@@ -1,0 +1,28 @@
+apiVersion: k8s.nginx.org/v1
+kind: VirtualServer
+metadata:
+  name: cafe
+spec:
+  host: cafe.example.com
+  tls:
+    secret: cafe-secret
+  upstreams:
+  - name: tea
+    service: tea-svc
+    port: 8081
+  - name: coffee
+    service: coffee-svc
+    port: 8082
+  routes:
+  - path: /tea
+    action:
+      pass: tea
+  - path: /coffee
+    action:
+      pass: coffee
+  - path: /
+    action:
+      return:
+        code: 200
+        type: text/plain 
+        body: "THIS IS EXAMPLE TO SHOW YOU TLS/SSL TERMINATION EXAMPLE NS CAFE-DEMO"

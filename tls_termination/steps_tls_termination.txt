@@ -1,9 +1,10 @@
 
 STEPS
 -----
+-----
 
 # Optional TLS/SSL self signed certs creation 
-$openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout my.key -out my.crt
+$openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout cafe_example_com.key -out cafe_example_com.crt
 
 
 #namespace creation
@@ -17,13 +18,13 @@ $sudo kubectl -n cafe-demo expose deployment cafe-demo --name=tea-svc --port=808
 $sudo kubectl -n cafe-demo expose deployment cafe-demo --name=coffee-svc --port=8082 --target-port=80
 
 #TLS cert as secret, Certs location could be different and based wherein you have placed certs.
-$sudo kubectl -n cafe-demo create secret tls cafe-secret --cert=certs/my.crt --key=certs/my.key 
+$sudo kubectl -n cafe-demo create secret tls cafe-secret --cert=certs/cafe_example_com.crt --key=certs/cafe_example_com.key
 
-#Create ingress 
-$sudo kubectl -n cafe-demo apply -f cafe-ingress-tls.yml
+#Create Virtual server 
+$sudo kubectl -n cafe-demo apply -f vs/tls_termination_vs.yml
 
 #View
-$sudo kubectl -n cafe-demo  get svc,secret,pods,ingress
+$sudo kubectl -n cafe-demo  get svc,secret,pods,vs
 
 
 TEST
@@ -40,4 +41,5 @@ $curl https://cafe.example.com
 - Edit file, vi /etc/hosts, and add below entry, replace 192.168.80 with your ingress node IP 
 192.168.1.80 cafe.example.com 
 
---FINISH--
+xxxxx--FINISH--xxxxx
+--------xxx---------
