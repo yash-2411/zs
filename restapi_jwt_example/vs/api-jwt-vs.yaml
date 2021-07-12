@@ -1,0 +1,21 @@
+apiVersion: k8s.nginx.org/v1
+kind: VirtualServer
+metadata:
+  name: jwtapi
+spec:
+  host: jwtapi.192.168.1.80.nip.io
+  policies:
+  - name: jwt-policy
+  upstreams:
+  - name: users
+    service: user-svc
+    port: 8081
+  routes:
+  - path: /api/v1/users
+    action:
+       proxy:
+         upstream: users 
+         requestHeaders:
+           set:
+           - name: sub
+             value: ${jwt_claim_sub}

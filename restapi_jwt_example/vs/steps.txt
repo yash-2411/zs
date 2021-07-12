@@ -1,0 +1,1 @@
+curl -H "Authorization: Bearer `cat api.jwt`" http://jwtapi.192.168.1.80.nip.io/api/v1/users 

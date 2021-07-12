@@ -1,0 +1,11 @@
+apiVersion: k8s.nginx.org/v1alpha1
+kind: Policy 
+metadata:
+  name: rate-limit-policy
+  namespace: blue-green
+spec:
+  rateLimit:
+    rate: 3r/m
+    key: ${binary_remote_addr}
+    zoneSize: 10M
+    rejectCode: 503

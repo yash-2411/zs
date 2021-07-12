@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: rest-ingress
+  annotations:
+    nginx.com/jwt-key: "jwk"
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: rest.192.168.1.80.nip.io
+    http:
+      paths:
+      - path: /api/v1/users
+        backend:
+          serviceName: user-svc
+          servicePort: 8081

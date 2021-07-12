@@ -1,0 +1,27 @@
+apiVersion: k8s.nginx.org/v1
+kind: VirtualServer
+metadata:
+  name: blue-green
+  namespace: blue-green
+spec:
+  host: blue-green.192.168.1.80.nip.io
+  policies:
+  - name: rate-limit-policy
+  upstreams:
+  - name: blue
+    service: blue-svc
+    port: 8081
+  - name: green
+    service: green-svc
+    port: 8082
+  routes:
+  - path: /
+    splits:
+    - weight: 50
+      action:
+        pass: blue
+    - weight: 50
+      action:
+        pass: green
+
+  
